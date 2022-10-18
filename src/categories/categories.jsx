@@ -3,6 +3,7 @@ import services from '../services/services'
 import {Paper,Grid} from '@mui/material'
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import {useNavigate} from 'react-router-dom'
 
 function Categories(){
 
@@ -25,6 +26,10 @@ function Categories(){
 
     },[])
 
+    const navigate = useNavigate()
+
+    const toPage=(id)=>navigate('/products/'+id)
+
     return(
         <Paper style={{marginTop:'10px'}}>
             <h2 style={{marginLeft:'10px'}}>Categories</h2>
@@ -38,7 +43,9 @@ function Categories(){
                     {
                        categories.map((i,index)=>{
 
-                        return <Grid item xs={6} md={4} key={index}>
+                        return <Grid item xs={6} md={4} key={index}
+                        onClick={()=>toPage(i.id)}
+                        >
                             <div style={{display:'flex',
                             flexDirection:'column',
                             justifyContent:'center',
