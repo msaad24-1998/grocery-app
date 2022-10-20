@@ -1,8 +1,120 @@
-import { db } from "../firebase";
+import { db,auth } from "../firebase";
+import { signInWithPopup,GoogleAuthProvider } from "firebase/auth";
 import {collection,getDocs,where,query,addDoc,doc,getFirestore,getDoc, onSnapshot, Firestore, setDoc} from 'firebase/firestore'
 
 
 const services ={
+
+    auten:()=>{
+
+        return new Promise((resolve,reject)=>{
+
+            let user = localStorage.getItem('user')
+
+            user = JSON.parse(user)||{}
+
+            if(user!==null){
+
+                if(user.uid.length>0){
+
+                    const docRef = doc(db,'customers',user.id)
+
+                    getDoc(docRef).then((res)=>{
+
+
+                        if(res.exists()){
+                            console.log('hire');
+                            resolve(true)
+                        }else{
+
+                            console.log('yes');
+ 
+                            reject(false)
+
+                        }
+
+                    }).catch((err)=>{
+                        console.log('no');
+                        console.log(err);
+                    })
+
+                }else{
+
+                    console.log('hire');
+
+                    reject(false)
+
+                }
+
+            }else{
+
+                console.log('arre');
+                reject(false)
+
+            }
+
+        })
+
+    },
+
+    autentication:()=>{
+
+        return new Promise((resolve,reject)=>{
+
+        const googleProvider = new GoogleAuthProvider();
+
+        signInWithPopup(auth,googleProvider).then((res)=>{
+            
+            const user = res.user
+
+            const q = query(collection(db,'customers'),where('uid','==',user.uid))
+
+            getDocs(q).then((res)=>{
+
+                if(res.docs.length===0){
+
+                    addDoc(collection(db,'customers'),{
+                        uid:user.uid,
+                        name:user.displayName,
+                        authProvider:'local',
+                        email:user.email
+                    }).then((res)=>{
+
+                        localStorage.setItem('user',JSON.stringify({
+                            uid:user.uid,
+                            name:user.displayName,
+                            authProvider:'local',
+                            email:user.email,
+                            id:res.id
+                        }))
+
+                        resolve(true)
+                        
+                    })
+
+                }else{
+
+                    res.docs.forEach((i)=>{
+
+                        let allData=i.data()
+
+                         allData.id=i.id
+
+                        localStorage.setItem('user',JSON.stringify(allData))
+
+                    })
+
+                    resolve(true)
+
+                }
+
+            })
+
+        }).catch((err)=>reject(err))
+
+    })
+
+    },
 
     getSingelData:(colc,id)=>{
 
@@ -149,6 +261,16 @@ const services ={
             }
 
         }
+
+    },
+
+    getCart:()=>{
+
+        let cart = localStorage.getItem('cart')
+
+        cart = JSON.parse(cart)||[]
+
+        return cart
 
     }
 

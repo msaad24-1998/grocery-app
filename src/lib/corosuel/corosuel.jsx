@@ -21,7 +21,7 @@ export default function ImagesSlider({data})
 function Item(props)
 {
     return (
-        <Paper>
+        <Paper style={{marginTop:'50px'}}>
              <img src={props.img} alt=""  
              style={{
                 width:'95%',

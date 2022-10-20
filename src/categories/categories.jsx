@@ -4,6 +4,7 @@ import {Paper,Grid} from '@mui/material'
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import {useNavigate} from 'react-router-dom'
+import CheckoutBar from '../checkoutBar';
 
 function Categories(){
 
@@ -31,6 +32,7 @@ function Categories(){
     const toPage=(id)=>navigate('/products/'+id)
 
     return(
+        <>
         <Paper style={{marginTop:'10px'}}>
             <h2 style={{marginLeft:'10px'}}>Categories</h2>
             {
@@ -63,6 +65,7 @@ function Categories(){
                 </Grid>
             }
         </Paper>
+        </>
     )
 
 }

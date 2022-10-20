@@ -6,6 +6,7 @@ import { Box } from "@mui/system";
 import { Grid } from "@mui/material";
 import ProductCard from "../lib/productCart";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import CheckoutBar from "../checkoutBar";
 
 function Products(){
 
