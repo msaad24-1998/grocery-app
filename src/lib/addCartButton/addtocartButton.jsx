@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button,Typography,Tooltip } from '@mui/material'
 import {Box} from '@mui/system'
 import services from '../../services'
+import CheckoutBar from '../../checkoutBar'
 
 const style ={
     btn:{
@@ -57,6 +58,7 @@ function AddToCartButton({id,maxQty,inStock}){
         services.addToCart(id)
 
         checkCart()
+
 
     }
 

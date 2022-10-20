@@ -2,6 +2,8 @@ import React,{useEffect,useState} from "react";
 import ImagesSlider from "../lib/corosuel/corosuel";
 import Categories from "../categories/categories";
 import services from '../services'
+import AppBarr from "../appbar";
+import CheckoutBar from "../checkoutBar";
 
 function Home(){
 
@@ -15,10 +17,13 @@ function Home(){
 
       },[])
 
+
     return(
         <>
+           <AppBarr/>
            <ImagesSlider data={sliderImg}/>
            <Categories/>
+           <CheckoutBar/>
         </>
     )
 
