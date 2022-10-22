@@ -2,6 +2,7 @@ import Home from "./home/home";
 import Products from "./products";
 import ProductDetails from "./productDetails";
 import Checkout from "./checkout";
+import Address from "./address";
 
 const routes =[
     {
@@ -19,6 +20,10 @@ const routes =[
     {
         path:'/checkout',
         component:<Checkout/>
+    },
+    {
+        path:'/addAddress',
+        component:<Address/>
     }
 ]
 
