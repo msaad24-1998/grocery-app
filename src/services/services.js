@@ -139,6 +139,25 @@ const services ={
 
     },
 
+
+    addData:(colc,data)=>{
+
+        return new Promise((resolve,reject)=>{
+
+              addDoc(collection(db,colc),data).then((res)=>{
+
+                resolve(true)
+
+              }).catch((err)=>{
+
+                reject(false)
+
+              })
+
+        })
+
+    },
+
     gerData:(colc,field,id)=>{
 
         console.log(field,id);
