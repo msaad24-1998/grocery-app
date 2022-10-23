@@ -3,6 +3,7 @@ import Products from "./products";
 import ProductDetails from "./productDetails";
 import Checkout from "./checkout";
 import Address from "./address";
+import Orders from "./orders";
 
 const routes =[
     {
@@ -24,6 +25,10 @@ const routes =[
     {
         path:'/addAddress',
         component:<Address/>
+    },
+    {
+        path:'/orders',
+        component:<Orders/>
     }
 ]
 
