@@ -27,7 +27,8 @@ class Checkout extends Component{
             addresses:[],
             addressId:'',
             isOpen:false,
-            isdisable:false
+            isdisable:false,
+            customerId:''
         }
 
         this.getCart=this.getCart.bind(this)
@@ -94,7 +95,8 @@ class Checkout extends Component{
                 this.setState({
                     ...this.state,
                     addresses:res,
-                    addressId:res[0].id
+                    addressId:res[0].id,
+                    customerId:user.id
                 })
 
             }
@@ -130,8 +132,9 @@ class Checkout extends Component{
                 productId:i.id,
                 sellerId:i.sellerId,
                 addressId:this.state.addressId,
-                discountedPrice:i.productDiscountedPrice,
-                qty:this.state.item[index].qty
+                discountedPrice:Number(i.productDiscountedPrice),
+                qty:Number(this.state.item[index].qty),
+                customerId:this.state.customerId
             }
 
             promise.push(services.addData('orders',order))
