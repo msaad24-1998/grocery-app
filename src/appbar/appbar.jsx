@@ -5,11 +5,13 @@ import {IconButton} from "@mui/material";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import services from "../services/services";
-
+import TemporaryDrawer from "../sidebar";
 
 function AppBarr(){
 
     const [isLoggedIn,setIsLoggedIn] = useState(true)
+
+    const [isOpen,setIsOpen] = useState(false)
 
 
     useEffect(()=>{
@@ -17,6 +19,9 @@ function AppBarr(){
         checkAuth()
 
     },[])
+
+    const handleOpen =(open)=> setIsOpen(open)
+
 
     const checkAuth=()=>{
 
@@ -37,6 +42,7 @@ function AppBarr(){
     }
 
     return(
+        <>
         <AppBar style={{backgroundColor:"white",color:'black'}}>
             <Toolbar style={{display:'flex',flexDirection:'row',justifyContent:"space-between"}}>
                 <Box>
@@ -46,12 +52,14 @@ function AppBarr(){
                     <IconButton onClick={login} disabled={isLoggedIn}>
                         <AccountCircleIcon/>
                     </IconButton>
-                    <IconButton>
-                        <MoreVertIcon/>
+                    <IconButton onClick={()=>handleOpen(true)}>
+                        <MoreVertIcon />
                     </IconButton>
                 </Box>
             </Toolbar>
         </AppBar>
+        <TemporaryDrawer isOpen={isOpen} handleOpen={(open)=>handleOpen(open)}/>
+        </>
     )
 
 }
