@@ -42,7 +42,7 @@ function App() {
 
         {
  
-            path==='/'||path==='/products/:categoryId'||'/productDetails/:productId'?
+            path==='/'||path==='/products/:categoryId'||path==='/productDetails/:productId'?
             <Footer/>   
             :null           
 
