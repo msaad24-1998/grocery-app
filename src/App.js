@@ -3,11 +3,7 @@ import './App.css';
 import routes from './routes';
 import {BrowserRouter as Router,createBrowserRouter,Route,Routes} from 'react-router-dom'
 import { useEffect, useState } from 'react';
-import { Snackbar,Alert,Typography } from '@mui/material';
-import { Box } from '@mui/system';
-import {IconButton} from '@mui/material';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import CheckoutBar from './checkoutBar';
+import Footer from './footer/footer';
 
 function App() {
 
@@ -43,6 +39,14 @@ function App() {
                 })                                                             
                }           
         </Routes>
+
+        {
+ 
+            path==='/'||path==='/products/:categoryId'||'/productDetails/:productId'?
+            <Footer/>   
+            :null           
+
+        }
        </Router>
     </>
   );
