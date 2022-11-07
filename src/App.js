@@ -23,6 +23,16 @@ function App() {
 
      }
 
+     let fvrt = localStorage.getItem('faverote') 
+
+     fvrt = JSON.parse(fvrt)||[]
+
+     if(fvrt === null){
+
+      localStorage.setItem('faverote',JSON.stringify([]))
+
+     }
+
   },[])
 
 

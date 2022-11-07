@@ -26,8 +26,6 @@ function ProductDetails(){
 
             setProduct(res)
 
-            console.log(res);
-
             services.getSingelData('sellers',res.sellerId).then((res)=>{
                 setSellerName(res.hotelName)
             }).catch((err)=>console.log(err))

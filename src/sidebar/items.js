@@ -4,7 +4,7 @@ import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining';
 const item =[
     {
         name:'favorite',
-        path:'/favorites',
+        path:'/wishlist',
         icon:<FavoriteIcon/>
     },
     {

@@ -1,6 +1,6 @@
 import { db,auth } from "../firebase";
 import { signInWithPopup,GoogleAuthProvider } from "firebase/auth";
-import {collection,getDocs,where,query,addDoc,doc,getFirestore,getDoc, onSnapshot, Firestore, setDoc} from 'firebase/firestore'
+import {collection,getDocs,where,query,addDoc,doc,orderBy,getFirestore,getDoc, onSnapshot, Firestore, setDoc} from 'firebase/firestore'
 
 
 const services ={
@@ -23,24 +23,18 @@ const services ={
 
 
                         if(res.exists()){
-                            console.log('hire');
                             resolve(true)
                         }else{
-
-                            console.log('yes');
  
                             reject(false)
 
                         }
 
                     }).catch((err)=>{
-                        console.log('no');
-                        console.log(err);
+                        reject(err)
                     })
 
                 }else{
-
-                    console.log('hire');
 
                     reject(false)
 
@@ -48,7 +42,6 @@ const services ={
 
             }else{
 
-                console.log('arre');
                 reject(false)
 
             }
@@ -118,7 +111,6 @@ const services ={
 
     getSingelData:(colc,id)=>{
 
-        console.log(colc,id);
         return new Promise((resolve,reject)=>{
 
             const docRef=doc(db,colc,id)
@@ -158,9 +150,7 @@ const services ={
 
     },
 
-    gerData:(colc,field,id)=>{
-
-        console.log(field,id);
+    gerData:(colc,activeField,field,id)=>{
 
         return new Promise((resolve,reject)=>{
 
@@ -168,11 +158,29 @@ const services ={
 
              if(id){
 
-                q=query(collection(db,colc),where(field,'==',id))
+                if(colc==='addresses'||colc==='orders'){
+
+                    if(colc==='addresses'){
+
+                        q=query(collection(db,colc),where(field,'==',id))
+
+                    }else{
+
+                        q=query(collection(db,colc),where(field,'==',id),orderBy('date'))
+
+                    }
+
+                    
+
+                }else{
+
+                    q=query(collection(db,colc),where(field,'==',id),where(activeField,'==',true))
+
+                }
 
              }else{
 
-                 q = query(collection(db,colc))
+                 q = query(collection(db,colc),where(activeField,'==',true))
 
              }
 
@@ -223,7 +231,11 @@ const services ={
 
         let cart = localStorage.getItem('cart')
 
-        cart = JSON.parse(cart)
+        if(cart=== null){
+            return 
+        }
+
+        cart = JSON.parse(cart) || []
 
         const index =cart.findIndex((i)=>{
             return i.id===id
@@ -290,6 +302,46 @@ const services ={
         cart = JSON.parse(cart)||[]
 
         return cart
+
+    },
+
+    inFvrt :id=>{
+
+        let fvrt = localStorage.getItem('faverote')
+
+        fvrt = JSON.parse(fvrt) || []
+
+        if(fvrt.length===0){
+
+            return false
+
+        }  
+
+        return fvrt.includes(id)
+
+    },
+    
+    addFvrt:(id,inFvrt)=>{
+
+        
+
+        let fvrt = localStorage.getItem('faverote')
+
+        fvrt = JSON.parse(fvrt) || []
+
+        if(inFvrt){
+
+             fvrt = fvrt.filter(i=>{
+                return i!==id
+            })
+
+        }else{
+
+            fvrt.push(id)
+
+        }
+
+        localStorage.setItem('faverote',JSON.stringify(fvrt))
 
     }
 

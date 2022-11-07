@@ -7,20 +7,59 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
-import { Grid } from '@mui/material';
+import { Grid,IconButton } from '@mui/material';
 import AddToCartButton from '../addCartButton/addtocartButton';
 import { useNavigate } from 'react-router-dom';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import services from '../../services';
+import { useState } from 'react';
+
+
+const style={
+  fvrt:{
+    color:'red'
+  }
+}
 
 export default function ProductCard({product}) {
 
+  const [infvrt,setinFvrt] = useState(false)
+
   const navigate = useNavigate()
 
+  const checkInFvrt=()=>{
+
+    setinFvrt(services.inFvrt(product.id))
+
+  }
+
+  React.useEffect(()=>{
+    checkInFvrt()
+  },[])
+
   const detailsPage=id=>{
-    console.log(id);
     navigate('/productdetails/'+id)
   }
 
+  const addWishlist =()=>{
+
+    services.addFvrt(product.id,infvrt)
+
+    checkInFvrt()
+
+  }
+
   return (
+    <>
+    <IconButton style={{
+      marginBottom:'-35px',
+      backgroundColor:'transparant',
+      marginLeft:'80%'
+    }}
+    onClick={addWishlist}
+    >
+    <FavoriteBorderIcon style={infvrt?style.fvrt:null} />
+    </IconButton>
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         component="img"
@@ -64,5 +103,6 @@ export default function ProductCard({product}) {
         </Grid>
       </CardContent>
     </Card>
+    </>
   );
 }

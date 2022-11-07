@@ -20,11 +20,9 @@ function Products(){
 
     useEffect(()=>{
 
-        services.gerData('products','categoryId',categoryId).then((res)=>{
+        services.gerData('products','productActive','categoryId',categoryId).then((res)=>{
 
             setProducts(res)
-
-            console.log(res);
 
             setLoding(false)
 

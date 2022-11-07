@@ -12,7 +12,7 @@ function Home(){
 
       useEffect(()=>{
 
-        services.gerData('corousuel1').then((res)=>{
+        services.gerData('corousuel1','active').then((res)=>{
           setSliderImg(res)
         })
 

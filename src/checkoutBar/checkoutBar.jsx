@@ -20,8 +20,6 @@ function CheckoutBar({cart}){
 
   useEffect(()=>{
 
-    console.log('hire');
-
     setPath(window.location.pathname)
 
     let cart = localStorage.getItem('cart')
