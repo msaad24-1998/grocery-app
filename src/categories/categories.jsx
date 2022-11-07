@@ -14,14 +14,14 @@ function Categories(){
 
     useEffect(()=>{
 
-        services.gerData('categories').then((res)=>{
+        services.gerData('categories','categoryActive').then((res)=>{
 
              setCategories(res)
 
              setLoading(false)
         }).catch((err)=>{
 
-            alert(err)
+            console.log(err);
 
         })
 

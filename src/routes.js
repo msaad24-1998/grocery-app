@@ -4,6 +4,7 @@ import ProductDetails from "./productDetails";
 import Checkout from "./checkout";
 import Address from "./address";
 import Orders from "./orders";
+import Wishlist from "./wishlist";
 
 const routes =[
     {
@@ -29,6 +30,10 @@ const routes =[
     {
         path:'/orders',
         component:<Orders/>
+    },
+    {
+        path:'/wishlist',
+        component:<Wishlist/>
     }
 ]
 

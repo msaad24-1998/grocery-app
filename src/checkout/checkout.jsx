@@ -40,9 +40,6 @@ class Checkout extends Component{
 
        const list = services.getCart()
 
-       console.log(list);
-       let total =0;
-
        if(list.length>0){
 
         const product =[]
@@ -84,13 +81,12 @@ class Checkout extends Component{
 
         user = JSON.parse(user)||{}
 
+
         if(user!==null){
 
-        services.gerData('addresses','customerId',user.id).then((res)=>{
+        services.gerData('addresses','','customerId',user.id).then((res)=>{
 
             if(res.length>0){
-
-                console.log(res[0].id);
 
                 this.setState({
                     ...this.state,
@@ -98,6 +94,10 @@ class Checkout extends Component{
                     addressId:res[0].id,
                     customerId:user.id
                 })
+
+            }else{
+
+                this.handleChane('isdisable',true)
 
             }
 
@@ -124,6 +124,8 @@ class Checkout extends Component{
 
         this.handleChane('isdisable',true)
 
+        const date = new Date()
+
         const promise=[]
 
         this.state.cart.forEach((i,index)=>{
@@ -134,7 +136,9 @@ class Checkout extends Component{
                 addressId:this.state.addressId,
                 discountedPrice:Number(i.productDiscountedPrice),
                 qty:Number(this.state.item[index].qty),
-                customerId:this.state.customerId
+                customerId:this.state.customerId,
+                status:"Placed",
+                date : date.getDate()+'/'+date.getMonth()+'/'+date.getUTCFullYear()
             }
 
             promise.push(services.addData('orders',order))

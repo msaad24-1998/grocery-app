@@ -22,7 +22,7 @@ function Footer(){
         <Paper style={{backgroundColor:'black',color:"white"}}>
             <h3>Links</h3>
             <Grid container item xs={12} md={12}>
-                <Grid item xs={4} md={4}>
+                <Grid item xs={12   } md={4}>
                     <Grid container item xs={12} md={12}  alignitem={'center'}>
                          <Grid item xs={4} md={4}>
                             <CodeIcon/>
@@ -52,7 +52,7 @@ function Footer(){
                     </Grid>
 
                 </Grid>
-                <Grid item xs={4} md={4}>
+                <Grid item xs={12} md={4}>
                      <Grid container item xs={12} md={12}  alignitem={'center'}>
                          <Grid item xs={4} md={4}>
                             <HomeIcon/>
