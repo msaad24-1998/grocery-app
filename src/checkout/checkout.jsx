@@ -28,7 +28,8 @@ class Checkout extends Component{
             addressId:'',
             isOpen:false,
             isdisable:false,
-            customerId:''
+            customerId:'',
+            isDataLoad:false
         }
 
         this.getCart=this.getCart.bind(this)
@@ -42,25 +43,60 @@ class Checkout extends Component{
 
        if(list.length>0){
 
+        let promises = []
+
         const product =[]
 
         list.forEach((i)=>{
 
-            services.getSingelData('products',i.id).then((res)=>{
+            promises.push(services.getSingelData('products',i.id))
+        }
 
-                 product.push(res)
+        )
 
-            }).catch((err)=>{
 
-                console.log(err);
+        Promise.all(promises).then((res)=>{
 
-            }).finally((res)=>{
-                this.setState({
-                    ...this.state,
-                    cart:product,
-                    item:list,
+            return {
+                cart:res,
+                item:list,
+
+            }
+
+
+        }).then((response)=>{
+
+        let user = localStorage.getItem('user')
+
+        user = JSON.parse(user)||{}
+
+        
+            if(user!==null){
+
+                services.gerData('addresses','','customerId',user.id).then((res)=>{
+        
+                    if(res.length>0){
+        
+                        this.setState({
+                            ...this.state,
+                            addresses:res,
+                            addressId:res[0].id,
+                            customerId:user.id,
+                            cart:response.cart,
+                            item:response.item,
+                            isDataLoad:true
+
+                        })
+        
+                    }else{
+        
+                        this.handleChane('isdisable',true)
+        
+                    }
+        
                 })
-            })
+        
+                }
 
         })
         
@@ -72,38 +108,11 @@ class Checkout extends Component{
        }
 
     }
-
     componentDidMount(){
+
 
         this.getCart()
 
-        let user = localStorage.getItem('user')
-
-        user = JSON.parse(user)||{}
-
-
-        if(user!==null){
-
-        services.gerData('addresses','','customerId',user.id).then((res)=>{
-
-            if(res.length>0){
-
-                this.setState({
-                    ...this.state,
-                    addresses:res,
-                    addressId:res[0].id,
-                    customerId:user.id
-                })
-
-            }else{
-
-                this.handleChane('isdisable',true)
-
-            }
-
-        })
-
-        }
 
     }
 
@@ -181,6 +190,7 @@ class Checkout extends Component{
         return(
             <>
                {
+                !this.state.isDataLoad?'Loading':
                 this.state.cart.length===0?
                   <h3 style={style.center}>Your Cart Is Empty</h3>
                 :
@@ -199,7 +209,7 @@ class Checkout extends Component{
                 <Grid container item xs={12} md={12} spacing={2}>
                     <Grid item xs={12} md={8}>
                          <Paper>
-                             {
+                             { !this.state.isDataLoad?null:
                                 this.state.cart.map((i,index)=>{
                                     return <Grid key={index} container item xs={12} md={12} spacing={2}>
                                         <Grid item xs={3} md={3}>
