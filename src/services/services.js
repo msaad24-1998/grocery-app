@@ -180,7 +180,13 @@ const services ={
 
              }else{
 
-                 q = query(collection(db,colc),where(activeField,'==',true))
+                if(colc==='sellers'){
+
+                    q=query(collection(db,colc))
+
+                }else q = query(collection(db,colc),where(activeField,'==',true))
+
+                
 
              }
 

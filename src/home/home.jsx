@@ -5,6 +5,7 @@ import services from '../services'
 import AppBarr from "../appbar";
 import CheckoutBar from "../checkoutBar";
 import TemporaryDrawer from "../sidebar";
+import Sellers from "../sellers";
 
 function Home(){
 
@@ -24,6 +25,7 @@ function Home(){
            <AppBarr/>
            <ImagesSlider data={sliderImg}/>
            <Categories/>
+           <Sellers showAllSellers={false}/>
            <CheckoutBar/>
         </>
     )

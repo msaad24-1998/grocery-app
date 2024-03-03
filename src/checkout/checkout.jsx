@@ -251,10 +251,10 @@ class Checkout extends Component{
                     </Grid>
                     <Grid item xs={12} md={4}>
                     <h3>Bills :</h3>
-                        <Paper>
+                        <Paper style={{paddingTop:'10px',paddingBottom:'10px'}}>
                             {
                                 this.state.cart.map((i,index)=>{
-                                    return <Grid key={index} container item xs={12} md={12}>
+                                    return <Grid key={index} container item xs={12} md={12} style={{marginLeft:'5px'}}>
                                         <Grid item xs={3} md={3}>
                                             {i.productName}
                                         </Grid>
