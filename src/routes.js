@@ -5,6 +5,8 @@ import Checkout from "./checkout";
 import Address from "./address";
 import Orders from "./orders";
 import Wishlist from "./wishlist";
+import Sellers from "./sellers";
+import ProductBySeller from "./productBySeller";
 
 const routes =[
     {
@@ -34,6 +36,14 @@ const routes =[
     {
         path:'/wishlist',
         component:<Wishlist/>
+    },
+    {
+        path:'/sellers',
+        component:<Sellers showAllSellers={true} />
+    },
+    {
+        path:'/productBySeller/:id',
+        component:<ProductBySeller/>
     }
 ]
 
